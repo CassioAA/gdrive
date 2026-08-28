@@ -1,6 +1,6 @@
 package users
 
-type UserCreationrResponse struct {
+type UserResponse struct {
     Name       string    `json:"name"`
     Login      string    `json:"login"`
 }

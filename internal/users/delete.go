@@ -23,15 +23,16 @@ func (h *handler) Delete(rw http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(chi.URLParam(r, "id"))
 	if err != nil {
 		http.Error(rw, err.Error(), http.StatusInternalServerError)
+		
 		return
 	}
 
 	err = deleteFromDB(h.db, int64(id))
 	if err != nil {
 		http.Error(rw, err.Error(), http.StatusInternalServerError)
+		
 		return
 	}
 
 	rw.WriteHeader(http.StatusNoContent)
-
 }

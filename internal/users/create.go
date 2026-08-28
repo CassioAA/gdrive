@@ -30,18 +30,21 @@ func (h *handler) Create(rw http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(u)
 	if err != nil {
 		http.Error(rw, err.Error(), http.StatusBadRequest)
+		
 		return
 	}
 
 	err = u.SetHashedOriginalPassword(u.Password)
 	if err != nil {
 		http.Error(rw, err.Error(), http.StatusBadRequest)
+		
 		return
 	}
 
 	err = u.Validate()
 	if err != nil {
 		http.Error(rw, err.Error(), http.StatusBadRequest)
+		
 		return
 	}
 
@@ -50,23 +53,21 @@ func (h *handler) Create(rw http.ResponseWriter, r *http.Request) {
 	id, err := insert(h.db, u)
 	if err != nil {
 		http.Error(rw, err.Error(), http.StatusInternalServerError)
+		
 		return
 	}
 	u.ID = id
 
-	response := UserCreationrResponse{
+	response := UserResponse {
 		Name:  u.Name,
 		Login: u.Login,
 	}
-
-	rw.Header().Set("Content-Type", "application/json")
-	rw.WriteHeader(http.StatusCreated)
-
 	// NewEncoder wires the Encoder output to rw so Encoder knows where to send, using
 	// ResponseWriter.Write(), the struct fields' content converted and formatted into JSON bytes
 	err = json.NewEncoder(rw).Encode(response)
 	if err != nil {
 		http.Error(rw, err.Error(), http.StatusInternalServerError)
+		
 		return
 	}
 

@@ -16,4 +16,5 @@ func SetRoutes(r chi.Router, db *sql.DB) {
 	// Handler.HTTPVerb have same method signature as Handler.ServeHTTP
 	r.Post("/", h.Create)
 	r.Delete("/{id}", h.Delete)
+	r.Get("/{id}", h.GetByID)
 }
