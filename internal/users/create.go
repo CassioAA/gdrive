@@ -58,6 +58,8 @@ func (h *handler) Create(rw http.ResponseWriter, r *http.Request) {
 	}
 	u.ID = id
 
+	rw.Header().Set("Content-Type", "application/json")
+
 	response := UserResponse {
 		Name:  u.Name,
 		Login: u.Login,
