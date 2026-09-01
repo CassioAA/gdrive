@@ -10,7 +10,7 @@ import (
 )
 
 func selectByID(db *sql.DB, id int64) (*User, error) {
-	stmt := `select * from "users" where id=$1`
+	stmt := `SELECT * FROM "users" WHERE id=$1`
 	var u User
 	err := db.QueryRow(stmt, id).
 		Scan(&u.ID, &u.Name, &u.Login, &u.Password,

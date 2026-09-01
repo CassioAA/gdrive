@@ -34,3 +34,4 @@ go.work.sum
 
 .golangci.yml
 .air.toml
+tmp/
