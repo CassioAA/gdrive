@@ -14,7 +14,7 @@ func main() {
 
 	db, err := database.NewConnection()
 	if err != nil {
-		log.Fatalf("Error connecting to the database: %v", err)
+		log.Fatalf("error connecting to the database: %v", err)
 	}
 
 	users.SetRoutes(r, db)

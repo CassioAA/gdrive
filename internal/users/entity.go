@@ -13,18 +13,18 @@ const (
 )
 
 var (
-	ErrNameRequired     = errors.New("Name is required")
-	ErrLoginRequired    = errors.New("Login is required")
-	ErrPasswordRequired = errors.New("Password is required")
-	ErrPasswordTooShort = errors.New("Password must have at least 6 characters")
+	ErrNameRequired     = errors.New("name is required")
+	ErrLoginRequired    = errors.New("login is required")
+	ErrPasswordRequired = errors.New("password is required")
+	ErrPasswordTooShort = errors.New("password must have at least 6 characters")
 	// For a password longer than 72 bytes, the user thinks that this extra 
 	// length makes the password stronger, but it makes no difference to bcrypt.
 	// Standard web payloads (such as JSON or form data sent via fetch/HTTP) encode 
 	// text using UTF-8. In UTF-8, every character in the standard ASCII set (a-z, 
 	// A-Z, 0-9, !, @, #, $, %, ^, &, *) encodes directly into 1 byte, so the amount
 	// of bytes and web characters are the same.
-	ErrPasswordTooLong  = errors.New("Password must have less than 72 characters")
-	ErrPasswordContainsInvalidChars = errors.New("Password contains invalid characters")
+	ErrPasswordTooLong  = errors.New("password must have less than 72 characters")
+	ErrPasswordContainsInvalidChars = errors.New("password contains invalid characters")
 )
 
 type User struct {
@@ -85,7 +85,7 @@ func (u *User) SetHashedOriginalPassword(password string) error {
 	
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	if err != nil {
-		return errors.New("Error hashing the password")
+		return errors.New("error hashing the password")
 	}
 
 	u.Password = string(hashedPassword)
