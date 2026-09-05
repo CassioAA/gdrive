@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"encoding/json"
 	"net/http"
-	"time"
 )
 
 func insert(db *sql.DB, u *User) (id int64, err error) {
