@@ -9,7 +9,7 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-func deleteFromDB(db *sql.DB, id int64) error {
+func softDelete(db *sql.DB, id int64) error {
 
 	stmt := `UPDATE users SET modified_at = $1 , deleted = true WHERE id = $2`
 	_, err := db.Exec(stmt, time.Now(), id)
@@ -27,7 +27,7 @@ func (h *handler) Delete(rw http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = deleteFromDB(h.db, int64(id))
+	err = softDelete(h.db, int64(id))
 	if err != nil {
 		http.Error(rw, err.Error(), http.StatusInternalServerError)
 		
