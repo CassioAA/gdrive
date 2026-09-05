@@ -9,7 +9,8 @@ import (
 
 func insert(db *sql.DB, u *User) (id int64, err error) {
 
-	stmt := `INSERT INTO users ("name", "login", "password", "modified_at") VALUES ($1, $2, $3, $4) RETURNING id`
+	stmt := `INSERT INTO users ("name", "login", "password", "modified_at")
+			VALUES ($1, $2, $3, $4) RETURNING id`
 
 	err = db.QueryRow(stmt, u.Name, u.Login, u.Password, u.ModifiedAt).
 		Scan(&id)
@@ -30,37 +31,35 @@ func (h *handler) Create(rw http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(u)
 	if err != nil {
 		http.Error(rw, err.Error(), http.StatusBadRequest)
-		
+
 		return
 	}
 
 	err = u.SetHashedOriginalPassword(u.Password)
 	if err != nil {
 		http.Error(rw, err.Error(), http.StatusBadRequest)
-		
+
 		return
 	}
 
 	err = u.Validate()
 	if err != nil {
 		http.Error(rw, err.Error(), http.StatusBadRequest)
-		
+
 		return
 	}
-
-	u.ModifiedAt = time.Now()
 
 	id, err := insert(h.db, u)
 	if err != nil {
 		http.Error(rw, err.Error(), http.StatusInternalServerError)
-		
+
 		return
 	}
 	u.ID = id
 
 	rw.Header().Set("Content-Type", "application/json")
 
-	response := UserResponse {
+	response := UserResponse{
 		Name:  u.Name,
 		Login: u.Login,
 	}
@@ -69,7 +68,7 @@ func (h *handler) Create(rw http.ResponseWriter, r *http.Request) {
 	err = json.NewEncoder(rw).Encode(response)
 	if err != nil {
 		http.Error(rw, err.Error(), http.StatusInternalServerError)
-		
+
 		return
 	}
 
