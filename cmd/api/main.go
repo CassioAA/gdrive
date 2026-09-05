@@ -4,8 +4,10 @@ import (
 	"log"
 	"net/http"
 
+	"drive-chi/internal/folders"
 	"drive-chi/internal/users"
 	"drive-chi/pkg/database"
+
 	"github.com/go-chi/chi/v5"
 )
 
@@ -18,6 +20,7 @@ func main() {
 	}
 
 	users.SetRoutes(r, db)
+	folders.SetRoutes(r, db)
 
 	log.Println("Server running on port 8080")
 	log.Fatal(http.ListenAndServe(":8080", r))

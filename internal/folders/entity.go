@@ -3,17 +3,19 @@ package folders
 import (
 	"errors"
 	"time"
+
+	"gopkg.in/guregu/null.v4"
 )
 
 var (
 	ErrNameRequired = errors.New("name is required")
 )
 
-func New (name string, parentID int64) (*Folder, error) {
-	
-	f := Folder {
+func New(name string, parentID null.Int) (*Folder, error) {
+
+	f := Folder{
 		ParentID: parentID,
-		Name: name,
+		Name:     name,
 	}
 
 	err := f.Validate()
@@ -22,7 +24,7 @@ func New (name string, parentID int64) (*Folder, error) {
 	}
 
 	return &f, nil
-} 
+}
 
 type FolderResource struct {
 	ID         int64     `json:"id"`
@@ -34,7 +36,7 @@ type FolderResource struct {
 
 type Folder struct {
 	ID         int64     `json:"id"`
-	ParentID   int64     `json:"parent_id"`
+	ParentID   null.Int  `json:"parent_id"`
 	Name       string    `json:"name"`
 	CreatedAt  time.Time `json:"created_at"`
 	ModifiedAt time.Time `json:"modified_at"`
@@ -47,6 +49,7 @@ type FolderContent struct {
 }
 
 func (f *Folder) Validate() error {
+
 	if f.Name == "" {
 		return ErrNameRequired
 	}

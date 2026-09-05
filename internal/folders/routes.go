@@ -1,4 +1,4 @@
-package users
+package folders
 
 import (
 	"database/sql"
@@ -11,18 +11,11 @@ type handler struct {
 }
 
 func SetRoutes(r chi.Router, db *sql.DB) {
-
 	h := handler{db}
 
 	routes := func(r chi.Router) {
-		// Handler.HTTPVerb have same method signature as Handler.ServeHTTP
 		r.Post("/", h.Create)
-		r.Delete("/{id}", h.Delete)
-		r.Get("/{id}", h.GetByID)
-		r.Get("/", h.List)
-		r.Put("/{id}", h.Modify)
 	}
 
-	r.Route("/users", routes)
-
+	r.Route("/folders", routes)
 }

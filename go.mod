@@ -7,3 +7,5 @@ require (
 	github.com/lib/pq v1.12.3
 	golang.org/x/crypto v0.55.0
 )
+
+require gopkg.in/guregu/null.v4 v4.0.0 // indirect
