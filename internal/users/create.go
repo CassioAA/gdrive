@@ -57,6 +57,7 @@ func (h *handler) Create(rw http.ResponseWriter, r *http.Request) {
 	u.ID = id
 
 	rw.Header().Set("Content-Type", "application/json")
+	rw.WriteHeader(http.StatusCreated)
 
 	response := UserResponse{
 		Name:  u.Name,
