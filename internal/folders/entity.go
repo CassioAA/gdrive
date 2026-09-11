@@ -43,7 +43,7 @@ type Folder struct {
 	Deleted    bool      `json:"-"`
 }
 
-type FolderContent struct {
+type FolderWuthContents struct {
 	Folder  Folder           `json:"folder"`
 	Content []FolderResource `json:"content"`
 }
