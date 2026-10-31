@@ -1,0 +1,20 @@
+package queue
+
+import (
+	"time"
+	"json"
+)
+
+type QueueDto struct {
+	Filename string "json:`filename`"
+	Path string "json:`path`"
+	ID int "json:`id`"
+}
+
+func (q* QueueDto) Marshal() ([]byte, error) {
+	return json.Marshal(q)
+}
+
+func (q* QueueDto) Unmarshall(data []byte) error {
+	return json.Unmarshall(data, q)
+}

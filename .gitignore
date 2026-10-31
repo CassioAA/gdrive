@@ -28,8 +28,8 @@ go.work.sum
 .env
 
 # Editor/IDE
-.zed/
-# .idea/
+# .zed/
+.idea/
 # .vscode/
 
 .golangci.yml
